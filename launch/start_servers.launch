@@ -1,0 +1,11 @@
+
+
+<launch>
+    <group ns="robot_lib">
+        <node name="set_velosities_server" pkg="robot_library" type="set_velosities_server.py"/>
+        <node name="get_camera_server" pkg="robot_library" type="get_camera_server.py"/>
+        <node name="get_direction_server" pkg="robot_library" type="get_direction_server.py"/>
+        <node name="get_encoders_server" pkg="robot_library" type="get_encoders_server.py"/>
+        <node name="get_laser_server" pkg="robot_library" type="get_laser_server.py"/>
+    </group>
+</launch>
