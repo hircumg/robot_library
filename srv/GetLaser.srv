@@ -1,0 +1,3 @@
+bool isStarted
+---
+sensor_msgs/LaserScan laser
