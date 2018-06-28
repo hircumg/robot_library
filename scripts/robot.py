@@ -10,14 +10,15 @@ from cv_bridge import CvBridge, CvBridgeError
 
 class Robot:
     """Library class for working with pioneer-3dx in gazebo"""
+    _pkg_name = "/robot_lib/"
 
     def __init__(self):
         pass
 
     def __set_velosities_client(self, linear_vel, angular_vel):
-        rospy.wait_for_service('set_velosities')
+        rospy.wait_for_service(self._pkg_name + 'set_velosities')
         try:
-            set_velosities = rospy.ServiceProxy('set_velosities', SetVelosities)
+            set_velosities = rospy.ServiceProxy(self._pkg_name +  'set_velosities', SetVelosities)
             result = set_velosities(linear_vel, angular_vel)
             return result.isSuccess
         except rospy.ServiceException, e:
@@ -27,37 +28,38 @@ class Robot:
 
     def __get_laser_client(self):
 
-        rospy.wait_for_service('get_laser')
+        rospy.wait_for_service(self._pkg_name +  'get_laser')
         try:
-            get_laser = rospy.ServiceProxy('get_laser', GetLaser)
+            get_laser = rospy.ServiceProxy(self._pkg_name +  'get_laser', GetLaser)
             result = get_laser(True)
             return result.laser
         except rospy.ServiceException, e:
             print("Service call failed: %s" % e)
 
     def __get_direction_client(self):
-        rospy.wait_for_service('get_direction')
+        rospy.wait_for_service(self._pkg_name +  'get_direction')
         try:
-            get_direction = rospy.ServiceProxy('get_direction', GetDirection)
+            get_direction = rospy.ServiceProxy(self._pkg_name +  'get_direction', GetDirection)
             result = get_direction(True)
             return result.direction
         except rospy.ServiceException, e:
             print("Service call failed: %s" % e)
 
     def __get_camera_client(self):
-        rospy.wait_for_service('get_camera')
+        rospy.wait_for_service(self._pkg_name +  'get_camera')
         try:
-            get_camera = rospy.ServiceProxy('get_camera', GetCamera)
+            get_camera = rospy.ServiceProxy(self._pkg_name + 'get_camera', GetCamera)
             result = get_camera(True)
             return result.image
         except rospy.ServiceException, e:
             print("Service call failed: %s" % e)
 
     def __get_encoders_client(self):
-        rospy.wait_for_service('get_encoders')
+        rospy.wait_for_service(self._pkg_name +  'get_encoders')
         try:
-            get_encoders = rospy.ServiceProxy('get_encoders', GetEncoders)
+            get_encoders = rospy.ServiceProxy(self._pkg_name +  'get_encoders', GetEncoders)
             result = get_encoders(True)
+            print(result)
             return {"left": result.left, "right": result.right}
         except rospy.ServiceException, e:
             print("Service call failed: %s" % e)

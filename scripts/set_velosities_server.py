@@ -4,7 +4,7 @@ import rospy
 from multi_robot_scenario.srv import *
 from geometry_msgs.msg import Twist
 
-pub = rospy.Publisher('/r1/cmd_vel', Twist)
+pub = rospy.Publisher('/r1/cmd_vel', Twist, queue_size=10)
 
 def handle_set_velosities(req):
     # print(req)
