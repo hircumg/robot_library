@@ -59,8 +59,8 @@ class Robot:
         try:
             get_encoders = rospy.ServiceProxy(self._pkg_name +  'get_encoders', GetEncoders)
             result = get_encoders(True)
-            print(result)
-            return {"left": result.left, "right": result.right}
+            # print(result)
+            return {'left': result.left, 'right': result.right}
         except rospy.ServiceException, e:
             print("Service call failed: %s" % e)
 
