@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from multi_robot_scenario.srv import *
+from robot_library.srv import *
 from sensor_msgs.msg import JointState
 
 

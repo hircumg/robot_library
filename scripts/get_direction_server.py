@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from multi_robot_scenario.srv import *
+from robot_library.srv import *
 from std_msgs.msg import Float64
 from nav_msgs.msg import Odometry
 from geometry_msgs.msg import *
