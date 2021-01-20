@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import rospy
 import cv2
@@ -24,7 +24,7 @@ class Robot:
             set_velosities = rospy.ServiceProxy(self._pkg_name +  'set_velosities', SetVelosities)
             result = set_velosities(linear_vel, angular_vel)
             return result.isSuccess
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print("Service call failed: %s" % e)
             return False
 
@@ -36,7 +36,7 @@ class Robot:
             get_laser = rospy.ServiceProxy(self._pkg_name +  'get_laser', GetLaser)
             result = get_laser(True)
             return result.laser
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print("Service call failed: %s" % e)
 
     def __get_direction_client(self):
@@ -45,7 +45,7 @@ class Robot:
             get_direction = rospy.ServiceProxy(self._pkg_name +  'get_direction', GetDirection)
             result = get_direction(True)
             return result.direction
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print("Service call failed: %s" % e)
 
     def __get_camera_client(self):
@@ -54,7 +54,7 @@ class Robot:
             get_camera = rospy.ServiceProxy(self._pkg_name + 'get_camera', GetCamera)
             result = get_camera(True)
             return result.image
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print("Service call failed: %s" % e)
 
     def __get_encoders_client(self):
@@ -64,7 +64,7 @@ class Robot:
             result = get_encoders(True)
             # print(result)
             return {'left': result.left, 'right': result.right}
-        except rospy.ServiceException, e:
+        except rospy.ServiceException as e:
             print("Service call failed: %s" % e)
 
 
