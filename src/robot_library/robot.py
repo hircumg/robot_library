@@ -3,10 +3,37 @@
 import rospy
 import cv2
 import numpy as np
+from rosgraph_msgs.msg import Clock
 from robot_library.srv import *
 from sensor_msgs.msg import LaserScan
 from sensor_msgs.msg import Image
 from cv_bridge import CvBridge, CvBridgeError
+
+SIMULATION_TIME = None
+
+def time() -> float:
+    """
+    Function returns time from gazebo simulation, used to override standart python function
+    """
+    return SIMULATION_TIME
+
+def sleep(secs) -> None:
+    """
+    Function stops executing program for seconds in simulation time
+    """
+    start_time = time()
+    while time() - start_time < secs:
+        pass
+
+
+def simulation_time_callback(data):
+    # print("we are updating something {}".format([data.clock.secs, data.clock.nsecs]))
+    global SIMULATION_TIME
+    # converting compound time object into float with seconds
+    SIMULATION_TIME = data.clock.secs + data.clock.nsecs / 1000000000
+
+rospy.init_node("clock_listener", anonymous=True)
+rospy.Subscriber("/clock", Clock, simulation_time_callback)
 
 class Robot:
     """Library class for working with pioneer-3dx in gazebo"""
@@ -15,8 +42,11 @@ class Robot:
     def __init__(self):
         pass
 
+    def time(self) -> float:
+        return time()
+
     def sleep(self, sec):
-        rospy.sleep(sec)
+        sleep(sec)
 
     def __set_velosities_client(self, linear_vel, angular_vel):
         rospy.wait_for_service(self._pkg_name + 'set_velosities')
