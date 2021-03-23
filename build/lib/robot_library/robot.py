@@ -42,9 +42,6 @@ class Robot:
     def __init__(self):
         pass
 
-    def time(self) -> float:
-        return time()
-
     def sleep(self, sec):
         sleep(sec)
 
